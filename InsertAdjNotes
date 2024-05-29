@@ -1,0 +1,13 @@
+INSERT INTO celink.tblLoanNotes ( INTSUBSERVICERLOANNUMBER, CHRLOANNOTES, DTMNOTEDATE, CHRUSERID, BLNPRIORITY, NOTESTEP )
+SELECT Loan, 
+	'Adjustment completed in the amount of ' || MIPADJ ||' to match amount paid to HUD for monthly mortgage insurance premium.' ,
+	current_timestamp,
+	'GNMA-MIP',
+	0,
+	6368 
+FROM dataupdt.CarringtonMIPAdjustments
+WHERE loan in (Select INTSUBSERVICERLOANNUMBER
+				from celink.tbltransactions	
+				WHERE idsuserid = 'GNMA-MIP'
+				AND dtmeffectivedate = current_date)
+ORDER BY Loan;
