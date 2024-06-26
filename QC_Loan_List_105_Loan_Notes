@@ -1,0 +1,5 @@
+--List of Loan Notes
+Select intsubservicerloannumber, chrloannotes, chruserid, dtmnotedate
+From celink.tblLoanNotes
+Where dtmnotedate >= current_date
+and chruserid = 'GNMA-MIP';
