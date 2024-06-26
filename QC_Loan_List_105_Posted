@@ -1,0 +1,6 @@
+-- List of loans with adjustment posted
+Select intsubservicerloannumber
+From celink.tbltransactions
+Where idstransactioncode = 105
+  and dtmeffectivedate = current_date
+  and idsuserid = 'GNMA-MIP')
