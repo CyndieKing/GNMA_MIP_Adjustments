@@ -1,0 +1,13 @@
+--List of loans without 105
+Select tt.intsubservicerloannumber, tt.idsstatuscode
+from celink.tbltransactions tt, 
+  celink.chooselastrecord clr
+where tt.intsubservicerloannumber = clr.celinkloan
+and tt.idstransactioncount = clr.maxcount
+and tt.intsubservicerloannumber in ( Select Loan 
+                                    from dataupdt.carringtonmipadjustments
+                                    where loan not in (Select intsubservicerloannumber
+                                        from celink.tbltransactions
+                                         where idstransactioncode = 105
+                                         and dtmeffectivedate = current_date
+                                         and idsuserid = 'GNMA-MIP'));
